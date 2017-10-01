@@ -5,7 +5,8 @@ import SliderInput from './components/SliderInput';
 import DisplayGraph from './components/DisplayGraph';
 import {
   setInitialSavingsAmount,
-  setMonthlyDepositAmount
+  setMonthlyDepositAmount,
+  setInterestRate
 } from './actions/app';
 import './App.css';
 
@@ -21,6 +22,8 @@ class App extends Component {
 					<CurrencyInput defaultValue={this.props.initialSavingsAmount} onChange={this.props.onInitialSavingsAmountChanged}/>
           <p className="input-label">How much will you save each month?</p>
 					<CurrencyInput defaultValue={this.props.monthlyDepositAmount} onChange={this.props.onMonthlyDepositAmountChanged}/>
+          <p className="input-label">How much interest will you earn per year?</p>
+					<SliderInput defaultValue={this.props.interestRate} onChange={this.props.onInterestRateChanged}/>
 				</div>
 			</div>
 		);
@@ -30,7 +33,8 @@ class App extends Component {
 const mapStateToProps = state => {
   return {
     initialSavingsAmount: state.app.get('initialSavingsAmount'),
-    monthlyDepositAmount: state.app.get('monthlyDepositAmount')
+    monthlyDepositAmount: state.app.get('monthlyDepositAmount'),
+    interestRate: state.app.get('interestRate')
   };
 };
 
@@ -41,6 +45,9 @@ const mapDispatchToProps = dispatch => {
     },
     onMonthlyDepositAmountChanged: amount => {
       dispatch(setMonthlyDepositAmount(amount));
+    },
+    onInterestRateChanged: rate => {
+      dispatch(setInterestRate(rate));
     }
   };
 };
