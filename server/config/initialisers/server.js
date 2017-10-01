@@ -21,6 +21,19 @@ module.exports = function() {
     app.use(bodyParser.urlencoded({ extended: true }));
     app.use(bodyParser.json({ type: '*/*' }));
 
+    // CROSS ORIGIN RESOURCE SHARING
+    app.use((req, res, next) => {
+      const allowedOrigins = ['http://localhost:3000'];
+      const origin = req.headers.origin;
+      if (allowedOrigins.indexOf(origin) > -1) {
+        res.setHeader('Access-Control-Allow-Origin', origin);
+      }
+      res.header("Access-Control-Allow-Credentials", "true");
+      res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS');
+      res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Authorization, Accept");
+      next();
+    });
+
     logger.info('[SERVER] Initializing routes');
     require('../../routes/index')(app);
 

@@ -42,6 +42,9 @@ class App extends Component {
 					<CurrencyInput currencySymbol={this.props.currency.symbol} defaultValue={this.props.monthlyDepositAmount} onChange={this.props.onMonthlyDepositAmountChanged}/>
           <p className="input-label">How much interest will you earn per year?</p>
 					<SliderInput defaultValue={this.props.interestRate} onChange={this.props.onInterestRateChanged}/>
+          <div className="financial-display">
+					<DisplayGraph data={this.props.monthlyProjection}/>
+				</div>
 				</div>
 			</div>
 		);

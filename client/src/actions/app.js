@@ -1,3 +1,5 @@
+import 'whatwg-fetch';
+
 export const SET_INITIAL_SAVINGS_AMOUNT = 'SET_INITIAL_SAVINGS_AMOUNT';
 export const SET_MONTHLY_DEPOSIT_AMOUNT = 'SET_MONTHLY_DEPOSIT_AMOUNT';
 export const SET_INTEREST_RATE = 'SET_INTEREST_RATE';
@@ -39,17 +41,13 @@ export function setMonthlyProjection(monthlyProjection) {
   };
 }
 
-function dummyFetch() {
-  return new Promise((resolve, reject) => {
-    setTimeout(resolve, 3000);
-  });
-}
-
 export function getMonthlyProjection() {
   return function(dispatch, getState) {
-    return dummyFetch().then(
-      success => dispatch(setMonthlyProjection([1,2,3])),
-      error => console.error(error)
-    );
+    return fetch('http://localhost:3001/api/v1/projection')
+      .then(response => response.text())
+      .then(
+        body => dispatch(setMonthlyProjection(JSON.parse(body).payload)),
+        error => dispatch(setMonthlyProjection([]))
+      );
   };
 }
