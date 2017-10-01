@@ -3,11 +3,15 @@ import { connect } from 'react-redux';
 import CurrencyInput from './components/CurrencyInput';
 import SliderInput from './components/SliderInput';
 import DisplayGraph from './components/DisplayGraph';
-import { setInitialSavingsAmount } from './actions/app';
+import {
+  setInitialSavingsAmount,
+  setMonthlyDepositAmount
+} from './actions/app';
 import './App.css';
 
 class App extends Component {
 	render() {
+    setInterval(() => console.log(this.props), 2000);
 		return (
 			<div className="App">
 				<div className="header-banner">
@@ -16,6 +20,8 @@ class App extends Component {
 				<div className="financial-inputs">
 					<p className="input-label">How much have you saved?</p>
 					<CurrencyInput defaultValue={0} onChange={this.props.onInitialSavingsAmountChanged}/>
+          <p className="input-label">How much will you save each month?</p>
+					<CurrencyInput defaultValue={0} onChange={this.props.onMonthlyDepositAmountChanged}/>
 				</div>
 			</div>
 		);
@@ -24,7 +30,8 @@ class App extends Component {
 
 const mapStateToProps = state => {
   return {
-    initialSavingsAmount: state.initialSavingsAmount
+    initialSavingsAmount: state.app.get('initialSavingsAmount'),
+    monthlyDepositAmount: state.app.get('monthlyDepositAmount')
   };
 };
 
@@ -32,6 +39,9 @@ const mapDispatchToProps = dispatch => {
   return {
     onInitialSavingsAmountChanged: amount => {
       dispatch(setInitialSavingsAmount(amount));
+    },
+    onMonthlyDepositAmountChanged: amount => {
+      dispatch(setMonthlyDepositAmount(amount));
     }
   };
 };
