@@ -19,9 +19,9 @@ class App extends Component {
 				</div>
 				<div className="financial-inputs">
 					<p className="input-label">How much have you saved?</p>
-					<CurrencyInput defaultValue={0} onChange={this.props.onInitialSavingsAmountChanged}/>
+					<CurrencyInput defaultValue={this.props.initialSavingsAmount} onChange={this.props.onInitialSavingsAmountChanged}/>
           <p className="input-label">How much will you save each month?</p>
-					<CurrencyInput defaultValue={0} onChange={this.props.onMonthlyDepositAmountChanged}/>
+					<CurrencyInput defaultValue={this.props.monthlyDepositAmount} onChange={this.props.onMonthlyDepositAmountChanged}/>
 				</div>
 			</div>
 		);
