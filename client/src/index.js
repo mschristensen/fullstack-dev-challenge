@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore, applyMiddleware  } from 'redux';
+import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import App from './App';
 import reducers from './reducers';
@@ -15,7 +16,7 @@ const logState = store => next => action => {
 
 const store = createStore(
   reducers,
-  applyMiddleware(logState)
+  applyMiddleware(logState, thunk)
 );
 
 ReactDOM.render(

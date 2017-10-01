@@ -8,7 +8,9 @@ import {
   setInitialSavingsAmount,
   setMonthlyDepositAmount,
   setInterestRate,
-  setCurrency
+  setCurrency,
+  setMonthlyProjection,
+  getMonthlyProjection
 } from './actions/app';
 import './App.css';
 
@@ -30,7 +32,7 @@ class App extends Component {
 					<h1 className="fmz-white-font">Finimize Interest Rate Calculator</h1>
 				</div>
 				<div className="financial-inputs">
-          <p className="input-label">What is your currency?</p>
+          <p className="input-label">Choose your currency:</p>
           <SelectInput defaultValue={this.props.currency} options={
             currencies.map(currency => { return { label: currency.symbol, value: currency.code }; }
           )} onChange={this.props.onCurrencyChanged} />
@@ -51,7 +53,8 @@ const mapStateToProps = state => {
     initialSavingsAmount: state.app.get('initialSavingsAmount'),
     monthlyDepositAmount: state.app.get('monthlyDepositAmount'),
     interestRate: state.app.get('interestRate'),
-    currency: state.app.get('currency')
+    currency: state.app.get('currency'),
+    monthlyProjection: state.app.get('monthlyProjection')
   };
 };
 
@@ -59,15 +62,22 @@ const mapDispatchToProps = dispatch => {
   return {
     onInitialSavingsAmountChanged: amount => {
       dispatch(setInitialSavingsAmount(amount));
+      dispatch(getMonthlyProjection());
     },
     onMonthlyDepositAmountChanged: amount => {
       dispatch(setMonthlyDepositAmount(amount));
+      dispatch(getMonthlyProjection());
     },
     onInterestRateChanged: rate => {
       dispatch(setInterestRate(rate));
+      dispatch(getMonthlyProjection());
     },
     onCurrencyChanged: currency => {
       dispatch(setCurrency(currencies.filter(elem => elem.code === currency)[0]));
+      dispatch(getMonthlyProjection());
+    },
+    onMonthlyProjectionChanged: data => {
+      dispatch(setMonthlyProjection(data));
     }
   };
 };
