@@ -25,12 +25,12 @@ export default class CurrencyInput extends Component {
 	}
 
 	render() {
-		const { defaultValue } = this.props;
+		const { defaultValue, currencySymbol } = this.props;
 		const { value } = this.state;
 
 		return (
 			<div className={`currency-input ${defaultValue !== undefined ? 'default-value' : ''}`}>
-				<span>£</span>
+				<span>{currencySymbol}</span>
 				<input type="text"
 					value={value}
 					onChange={this.handleChange.bind(this)}

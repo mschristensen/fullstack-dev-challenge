@@ -1,6 +1,7 @@
 export const SET_INITIAL_SAVINGS_AMOUNT = 'SET_INITIAL_SAVINGS_AMOUNT';
 export const SET_MONTHLY_DEPOSIT_AMOUNT = 'SET_MONTHLY_DEPOSIT_AMOUNT';
 export const SET_INTEREST_RATE = 'SET_INTEREST_RATE';
+export const SET_CURRENCY = 'SET_CURRENCY';
 
 export function setInitialSavingsAmount(amount) {
   return {
@@ -20,5 +21,12 @@ export function setInterestRate(rate) {
   return {
     type: SET_INTEREST_RATE,
     rate: Number(rate)
+  };
+}
+
+export function setCurrency(currency) {
+  return {
+    type: SET_CURRENCY,
+    currency
   };
 }
