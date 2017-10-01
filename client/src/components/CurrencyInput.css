@@ -3,7 +3,7 @@
 	margin: auto;
 	font-weight: 800;
 	white-space: nowrap;
-	display: inline-block;
+  display: inline-block;
 }
 
 .currency-input span {
@@ -28,7 +28,8 @@
 	text-align: center;
 	letter-spacing: 1px;
 	max-width: 150px;
-	width: 60%;
+  width: 60%;
+  vertical-align: top;
 }
 
 .currency-input :focus {
