@@ -4,6 +4,7 @@ import {
   SET_MONTHLY_DEPOSIT_AMOUNT,
   SET_INTEREST_RATE,
   SET_CURRENCY,
+  SET_INTEREST_PERIOD,
   SET_MONTHLY_PROJECTION
 } from '../actions/app';
 
@@ -15,6 +16,7 @@ const initialState = Map({
     symbol: '£',
     code: 'GBP'
   },
+  interestPeriod: 'monthly',
   monthlyProjection: [{
     month: 1,
     amount:500
@@ -41,6 +43,8 @@ export default (state = initialState, action) => {
     return state.set('currency', action.currency);
   } else if (action.type === SET_MONTHLY_PROJECTION) {
     return state.set('monthlyProjection', action.monthlyProjection);
+  } else if (action.type === SET_INTEREST_PERIOD) {
+    return state.set('interestPeriod', action.interestPeriod);
   } else {
     return state;
   }

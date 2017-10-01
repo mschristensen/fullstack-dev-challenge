@@ -9,6 +9,7 @@ import {
   setMonthlyDepositAmount,
   setInterestRate,
   setCurrency,
+  setInterestPeriod,
   setMonthlyProjection,
   getMonthlyProjection
 } from './actions/app';
@@ -24,6 +25,18 @@ const currencies = [
   }
 ];
 
+const interestPeriodOptions = [{
+    value: 'monthly',
+    label: 'Monthly'
+  }, {
+    value: 'quarterly',
+    label: 'Quarterly'
+  }, {
+    value: 'yearly',
+    label: 'Yearly'
+  }
+];
+
 class App extends Component {
 	render() {
 		return (
@@ -34,14 +47,16 @@ class App extends Component {
 				<div className="financial-inputs">
           <p className="input-label">Choose your currency:</p>
           <SelectInput defaultValue={this.props.currency} options={
-            currencies.map(currency => { return { label: currency.symbol, value: currency.code }; }
-          )} onChange={this.props.onCurrencyChanged} />
+            currencies.map(currency => { return { label: currency.symbol, value: currency.code }; })
+          } onChange={this.props.onCurrencyChanged} />
 					<p className="input-label">How much have you saved?</p>
 					<CurrencyInput currencySymbol={this.props.currency.symbol} defaultValue={this.props.initialSavingsAmount} onChange={this.props.onInitialSavingsAmountChanged}/>
           <p className="input-label">How much will you save each month?</p>
 					<CurrencyInput currencySymbol={this.props.currency.symbol} defaultValue={this.props.monthlyDepositAmount} onChange={this.props.onMonthlyDepositAmountChanged}/>
           <p className="input-label">How much interest will you earn per year?</p>
 					<SliderInput defaultValue={this.props.interestRate} onChange={this.props.onInterestRateChanged}/>
+          <p className="input-label">How often is the interest paid?</p>
+          <SelectInput defaultValue={this.props.interestPeriod} options={interestPeriodOptions} onChange={this.props.onInterestPeriodChanged} />
           <div className="financial-display">
 					<DisplayGraph data={this.props.monthlyProjection}/>
 				</div>
@@ -57,6 +72,7 @@ const mapStateToProps = state => {
     monthlyDepositAmount: state.app.get('monthlyDepositAmount'),
     interestRate: state.app.get('interestRate'),
     currency: state.app.get('currency'),
+    interestPeriod: state.app.get('interestPeriod'),
     monthlyProjection: state.app.get('monthlyProjection')
   };
 };
@@ -77,6 +93,10 @@ const mapDispatchToProps = dispatch => {
     },
     onCurrencyChanged: currency => {
       dispatch(setCurrency(currencies.filter(elem => elem.code === currency)[0]));
+      dispatch(getMonthlyProjection());
+    },
+    onInterestPeriodChanged: period => {
+      dispatch(setInterestPeriod(period));
       dispatch(getMonthlyProjection());
     },
     onMonthlyProjectionChanged: data => {
