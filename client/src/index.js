@@ -1,12 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware  } from 'redux';
 import { Provider } from 'react-redux';
 import App from './App';
-import reducer from './reducer';
+import reducers from './reducers';
 import './index.css';
 
-const store = createStore(reducer);
+const logState = store => next => action => {
+  console.log('Dispatching:', action);
+  const result = next(action);
+  console.log('Next state:', store.getState().app.toJS());
+  return result;
+};
+
+const store = createStore(
+  reducers,
+  applyMiddleware(logState)
+);
 
 ReactDOM.render(
   <Provider store={store}>

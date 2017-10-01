@@ -11,7 +11,6 @@ import './App.css';
 
 class App extends Component {
 	render() {
-    setInterval(() => console.log(this.props), 2000);
 		return (
 			<div className="App">
 				<div className="header-banner">
