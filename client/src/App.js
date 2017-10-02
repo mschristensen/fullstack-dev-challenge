@@ -13,6 +13,7 @@ import {
   setMonthlyProjection,
   getMonthlyProjection
 } from './actions/app';
+import { debounce } from 'underscore';
 import './App.css';
 
 const currencies = [
@@ -41,6 +42,10 @@ const interestPeriodOptions = [{
 ];
 
 class App extends Component {
+  componentWillMount() {
+    this.props.displayMonthlyProjection();
+  }
+
 	render() {
 		return (
 			<div className="App">
@@ -81,26 +86,28 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => {
+  const displayMonthlyProjection = debounce(() => dispatch(getMonthlyProjection()), 100);
   return {
+    displayMonthlyProjection,
     onInitialSavingsAmountChanged: amount => {
       dispatch(setInitialSavingsAmount(amount));
-      dispatch(getMonthlyProjection());
+      displayMonthlyProjection();
     },
     onMonthlyDepositAmountChanged: amount => {
       dispatch(setMonthlyDepositAmount(amount));
-      dispatch(getMonthlyProjection());
+      displayMonthlyProjection();
     },
     onInterestRateChanged: rate => {
       dispatch(setInterestRate(rate));
-      dispatch(getMonthlyProjection());
+      displayMonthlyProjection();
     },
     onCurrencyChanged: currency => {
       dispatch(setCurrency(currencies.filter(elem => elem.code === currency)[0]));
-      dispatch(getMonthlyProjection());
+      displayMonthlyProjection();
     },
     onInterestPeriodChanged: period => {
       dispatch(setInterestPeriod(period));
-      dispatch(getMonthlyProjection());
+      displayMonthlyProjection();
     },
     onMonthlyProjectionChanged: data => {
       dispatch(setMonthlyProjection(data));

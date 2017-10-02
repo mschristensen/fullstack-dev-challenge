@@ -11,25 +11,13 @@ import {
 const initialState = Map({
   initialSavingsAmount: 1500,
   monthlyDepositAmount: 100,
-  interestRate: 5,
+  interestRate: 3.5,
   currency: {
     symbol: '£',
     code: 'GBP'
   },
-  interestPeriod: 'monthly',
-  monthlyProjection: [{
-    month: 1,
-    amount:500
-  },{
-    month: 2,
-    amount:700
-  },{
-    month: 3,
-    amount:1000
-  },{
-    month: 4,
-    amount:1500
-  }]
+  interestPeriod: 'quarterly',
+  monthlyProjection: []
 });
 
 export default (state = initialState, action) => {
