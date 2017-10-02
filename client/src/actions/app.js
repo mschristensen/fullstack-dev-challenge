@@ -59,6 +59,8 @@ export function getMonthlyProjection() {
       getState().app.get('interestRate')
     }&interestPeriod=${
       getState().app.get('interestPeriod')
+    }&currencyCode=${
+      getState().app.get('currency').code
     }`)
       .then(response => response.text())
       .then(
