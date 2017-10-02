@@ -57,10 +57,10 @@ class App extends Component {
 					<SliderInput defaultValue={this.props.interestRate} onChange={this.props.onInterestRateChanged}/>
           <p className="input-label">How often is the interest paid?</p>
           <SelectInput defaultValue={this.props.interestPeriod} options={interestPeriodOptions} onChange={this.props.onInterestPeriodChanged} />
-          <div className="financial-display">
-					<DisplayGraph data={this.props.monthlyProjection}/>
-				</div>
-				</div>
+        </div>
+        <div className="financial-display">
+          <DisplayGraph data={this.props.monthlyProjection}/>
+        </div>
 			</div>
 		);
 	}

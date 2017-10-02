@@ -41,13 +41,24 @@ p {
 	color: #ffffff;
 }
 
+.App {
+	display: flex;
+	flex-wrap: wrap;
+}
+
 .header-banner {
 	background-color: #00b2ff;
 	padding: 20px;
+	flex: 0 0 100%;
 }
 
 .financial-inputs {
 	padding: 20px;
+	flex: 1;
+}
+
+.financial-display {
+	flex: 1;
 }
 
 .input-label {

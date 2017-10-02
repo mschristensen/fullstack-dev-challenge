@@ -7,6 +7,6 @@ const ProjectionController = require('../controllers/projection');
 module.exports = function(router) {
   router.route('/')
     .get((req, res) => {
-      return ProjectionController(req, res).calculateMonthlyProjectionData({});
+      return ProjectionController(req, res).calculateMonthlyProjectionData(req.query);
     });
 };

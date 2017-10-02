@@ -51,7 +51,15 @@ export function setMonthlyProjection(monthlyProjection) {
 
 export function getMonthlyProjection() {
   return function(dispatch, getState) {
-    return fetch('http://localhost:3001/api/v1/projection')
+    return fetch(`http://localhost:3001/api/v1/projection?initialSavingsAmount=${
+      getState().app.get('initialSavingsAmount')
+    }&monthlyDepositAmount=${
+      getState().app.get('monthlyDepositAmount')
+    }&interestRate=${
+      getState().app.get('interestRate')
+    }&interestPeriod=${
+      getState().app.get('interestPeriod')
+    }`)
       .then(response => response.text())
       .then(
         body => dispatch(setMonthlyProjection(JSON.parse(body).payload)),
